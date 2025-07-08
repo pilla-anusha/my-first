@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Resume Builder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .resume-preview {
+      margin-top: 30px;
+      padding: 20px;
+      border-top: 2px solid #333;
+      display: none;
+    }
+
+    .resume-preview h2 {
+      margin-bottom: 5px;
+    }
+
+    .resume-preview h3 {
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Resume Builder</h1>
+    <form id="resumeForm">
+      <label>Full Name:</label>
+      <input type="text" id="name" required>
+
+      <label>Email:</label>
+      <input type="email" id="email" required>
+
+      <label>Phone:</label>
+      <input type="text" id="phone" required>
+
+      <label>Summary:</label>
+      <textarea id="summary" rows="4"></textarea>
+
+      <label>Skills (comma separated):</label>
+      <input type="text" id="skills">
+
+      <label>Education:</label>
+      <textarea id="education" rows="3"></textarea>
+
+      <label>Experience:</label>
+      <textarea id="experience" rows="3"></textarea>
+
+      <button type="button" onclick="generateResume()">Generate Resume</button>
+    </form>
+
+    <div class="resume-preview" id="resumePreview">
+      <h2 id="rName"></h2>
+      <p id="rEmailPhone"></p>
+      <p id="rSummary"></p>
+      <h3>Skills</h3>
+      <ul id="rSkills"></ul>
+      <h3>Education</h3>
+      <p id="rEducation"></p>
+      <h3>Experience</h3>
+      <p id="rExperience"></p>
+    </div>
+  </div>
+
+  <script>
+    function generateResume() {
+      document.getElementById('rName').innerText = document.getElementById('name').value;
+      document.getElementById('rEmailPhone').innerText =
+        document.getElementById('email').value + ' | ' + document.getElementById('phone').value;
+      document.getElementById('rSummary').innerText = document.getElementById('summary').value;
+
+      const skills = document.getElementById('skills').value.split(',');
+      const skillsList = document.getElementById('rSkills');
+      skillsList.innerHTML = '';
+      skills.forEach(skill => {
+        const li = document.createElement('li');
+        li.textContent = skill.trim();
+        skillsList.appendChild(li);
+      });
+
+      document.getElementById('rEducation').innerText = document.getElementById('education').value;
+      document.getElementById('rExperience').innerText = document.getElementById('experience').value;
+
+      document.getElementById('resumePreview').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
+
+
